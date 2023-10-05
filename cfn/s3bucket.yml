@@ -6,12 +6,23 @@ Parameters:
 
   BucketName: 
     Type: String
-    Default: Interview~bucket
+    Default: JoeWraggDevopsInterviewBucket
 
+Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: Private
       BucketName: !Ref BucketName
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
+      DeletionPolicy: Retain
+      UpdateReplacePolicy: Retain
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+Outputs:
+  S3BucketArn:
+    Description: The ARN of the S3 bucket
+    Value: !GetAtt S3Bucket.Arn
